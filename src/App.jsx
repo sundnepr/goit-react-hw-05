@@ -1,53 +1,50 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import { Navigate, Routes, Route } from "react-router-dom";
-import { Loader } from './components/Loader/Loader';
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import { Navigate, Routes, Route, NavLink } from "react-router-dom";
+import { Loader } from "./components/Loader/Loader";
 
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense } from "react";
+import { HomePage } from "./pages/HomePage";
+import { MoviesPage } from "./pages/MoviesPage";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [count, setCount] = useState(0);
 
-  const HomePage = lazy(() => import('pages/HomePage.jsx'));
-  const MovesPage = lazy(() => import('pages/MoviesPage.jsx'));
+  //const HomePage = lazy(() => import("pages/HomePage.jsx"));
+  //const MovesPage = lazy(() => import("pages/MoviesPage.jsx"));
 
   return (
-    <>
-     {/* <Header /> */}
-      <Suspense fallback={<Loader />}>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/moves" element={<MovesPage />} />
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
-      </Suspense>
-
-<h1>HELLO</h1>
-
-      {/* <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p> */}
-    </>
-  )
+    <div>
+      <header>
+      <nav>
+          <NavLink
+            // className={({ isActive }) => clsx(css.link, isActive && css.active)}
+            to="/"
+          >
+            Home
+          </NavLink>
+          <NavLink
+            // className={({ isActive }) => clsx(css.link, isActive && css.active)}
+            to="/movies"
+          >
+            Movies
+          </NavLink>
+        </nav>
+      </header>
+      <main>
+    <Routes>
+      <Route path="/">
+        {/* <Route element={<Loader />} /> */}
+        <Route path="/" element={<HomePage />} />
+        <Route path="movies" element={<MoviesPage />} />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Route>
+    </Routes>
+    </main>
+    </div>
+  );
 }
 
-export default App
+export default App;
